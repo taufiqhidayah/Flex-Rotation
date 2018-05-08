@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Sudut Kampung Inggris
+	</title>
+</head>
+<body>
+
+<style type="text/css">
+
+/* "box" is offset by hours */
+.box {
+	display: flex;
+	flex-direction: row;
+}
+
+.offset-1 > :nth-child(1) { order: 1; }
+.offset-1 > :nth-child(2) { order: 2; }
+.offset-1 > :nth-child(3) { order: 3; }
+.offset-1 > :nth-child(4) { order: 4; }
+
+.offset-2 > :nth-child(1) { order: 4; }
+.offset-2 > :nth-child(2) { order: 1; }
+.offset-2 > :nth-child(3) { order: 2; }
+.offset-2 > :nth-child(4) { order: 3; }
+
+.offset-3 > :nth-child(1) { order: 3; }
+.offset-3 > :nth-child(2) { order: 4; }
+.offset-3 > :nth-child(3) { order: 1; }
+.offset-3 > :nth-child(4) { order: 2; }
+
+.offset-4 > :nth-child(1) { order: 2; }
+.offset-4 > :nth-child(2) { order: 3; }
+.offset-4 > :nth-child(3) { order: 4; }
+.offset-4 > :nth-child(4) { order: 1; }
+
+/* "konten" is offset by days */
+.konten {
+	display: flex;
+	flex-direction: column;
+}
+#content1 {
+  width: 200px;
+  height: 200px;
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+}
+	</style>
+<div class="konten">
+    <div class="box" style="background-color:red;">
+		    <div class="box1" style="background-color:red;">A</div>
+		    <div class="box1" style="background-color:lightblue;">B</div>
+		    <div class="box1" style="background-color:yellow;">C</div>
+			<div class="box1" style="background-color:blue;">D</div>
+
+	</div>
+	<div class="box" id="box2">
+			<div class="box1" style="background-color:red;">A</div>
+		    <div class="box1" style="background-color:lightblue;">B</div>
+		    <div class="box1" style="background-color:yellow;">C</div>
+			<div class="box1" style="background-color:blue;">D</div>
+
+
+	</div>
+	<div class="box" id="box3">
+			<div class="box1" style="background-color:red;">A</div>
+		    <div class="box1" style="background-color:lightblue;">B</div>
+		    <div class="box1" style="background-color:yellow;">C</div>
+			<div class="box1" style="background-color:blue;">D</div>
+
+	</div>
+	<div class="box" id="box4">
+			<div class="box1" style="background-color:red;">A</div>
+		    <div class="box1" style="background-color:lightblue;">B</div>
+		    <div class="box1" style="background-color:yellow;">C</div>
+			<div class="box1" style="background-color:blue;">D</div>
+	</div>
+</div>
+	<script type="text/javascript">
+		(
+function(){
+	var boxes = document.querySelectorAll('.box');
+	var konten = document.querySelector('.konten');
+	var now = new Date();
+
+	// it just so happens that we can use the same classes for both
+	// vertical and horizontal.
+	var classes = ['offset-1', 'offset-2', 'offset-3', 'offset-4'];
+
+	// used https://stackoverflow.com/a/8619946/854246 to get the day of the year
+	var start = new Date(now.getFullYear(), 0, 0);
+	var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+	var oneDay = 1000 * 60 * 60 * 24;
+	var day = Math.floor(diff / oneDay);
+
+	// set offsets for horizontal tiles
+	for(let i = 0, len = boxes.length; i < len; i++) {
+		boxes[i].classList.add(classes[now.getHours() % classes.length]);
+	}
+
+	// set offsets for vertical tiles
+	konten.classList.add(classes[day % classes.length]);
+}
+)();
+	</script>
+</body>
+</html>
